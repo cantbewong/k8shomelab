@@ -1,0 +1,77 @@
+#cloud-config
+# runs unless file /etc/cloud/cloud-init.disabled exists
+# Troubleshooting:
+# log on as user ubuntu and look at these log files
+# /var/log/cloud-init-output.log
+# /var/log/cloud-init.log: very detailed log 
+# create groups and users  
+groups:
+  - docker
+users:
+  - default
+  - name: tceadmin
+    gecos: Tanzu CE Admin
+    groups: sudo, docker
+    lock_passwd: false
+    plain_text_passwd: tceadmin
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAAsubstituteyourownsshpublickeyhereZZZZ myname@mydomain.com
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+# install software from packages
+apt:
+ sources:
+   docker.list:
+     source: deb [arch=amd64] https://download.docker.com/linux/ubuntu $RELEASE stable
+     keyid: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
+package_upgrade: true
+packages:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - gnupg-agent
+  - openssh-server
+  - software-properties-common
+  - jq
+  - docker-ce
+  - docker-ce-cli
+# limit Docker log disk consumption
+write_files:
+  - path: /etc/docker/daemon.json
+    permissions: "0644"
+    content: |
+      {
+        "log-driver": "local",
+        "log-opts": {
+          "max-size": "10m",
+          "max-file": "3"
+        }
+      }print-stats
+  - path: /etc/update-motd.d/99-tcejumpbox
+    permissions: "0755"
+    content: |
+      #!/bin/sh
+      #
+      printf "This is a jumpbox for deploying Tanzu Community Edition Clusters to vSphere\n"
+      printf "Already Installed: docker runtime; kubectl cli; tanzu cli, helm\n"
+      printf "Versions can be checked by running: docker version; kubectl version; tanzu version; helm version\n"
+      printf "The web UI for installing a management cluster can be brought up with:\n tanzu mc create --ui --bind $(hostname -I | awk '{print $1;}'):8080 --browser none\n\n"
+# install software from downloads
+runcmd:
+  - export KUBECTLVER=v1.22.11
+  - export TCEVER=v0.12.1
+  - export HELMVER=v3.9.0
+  - sudo -u tceadmin curl -L -o /home/tceadmin/kubectl https://dl.k8s.io/release/${KUBECTLVER}/bin/linux/amd64/kubectl
+  - sudo install -o root -g root -m 0755 /home/tceadmin/kubectl /usr/local/bin/kubectl
+  - sudo -u tceadmin curl -L -o /home/tceadmin/tce-linux-amd64-${TCEVER}.tar.gz -L https://github.com/vmware-tanzu/community-edition/releases/download/${TCEVER}/tce-linux-amd64-${TCEVER}.tar.gz
+  - tar xzvf /home/tceadmin/tce-linux-amd64-${TCEVER}.tar.gz --one-top-level=/opt/tce
+  - sudo -u tceadmin /opt/tce/tce-linux-amd64-${TCEVER}/install.sh
+  - sudo -u tceadmin curl -L -o /home/tceadmin/helm-${HELMVER}-linux-amd64.tar.gz https://get.helm.sh/helm-${HELMVER}-linux-amd64.tar.gz
+  - sudo -u tceadmin tar -zxvf /home/tceadmin/helm-${HELMVER}-linux-amd64.tar.gz --one-top-level=/home/tceadmin/helm-${HELMVER}
+  - sudo install -o root -g root -m 0755 /home/tceadmin/helm-${HELMVER}/linux-amd64/helm /usr/local/bin/helm
+  - sudo -u tceadmin helm repo add bitnami https://charts.bitnami.com/bitnami
+  - sudo usermod -aG docker ubuntu
+final_message: "The system is finally up, after $UPTIME seconds"
+power_state:
+  timeout: 360
+  mode: poweroff
