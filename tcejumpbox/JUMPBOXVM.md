@@ -39,7 +39,7 @@ New-ContentLibraryItem -ContentLibrary ContentLibTCE -Name focal-server-cloudimg
 Using Visual Studio create a new file named **tcejumpbox-init.yml** with this content (change ssh public key to your own, and change KUBECTLVER, TCEVER and HELMVER if you like):
 
 See example file in this repo.
-
+https://github.com/cantbewong/k8shomelab/blob/95fc2b291e47670cbb9c0dbd4a639ff27d870ac4/tcejumpbox/tcejumpbox-init.yml
 
 
 Save the file then do “Save As” and save again as **tcejumpbox-init.base64**. Hit ctl A to select all text, then ctl-E ctl-E to convert to base64 (assumes you installed the base64 plugin to VisualStudioCode). Save again in encoded form.
