@@ -35,10 +35,10 @@ packages:
   - jq
   - docker-ce
   - docker-ce-cli
+  - rng-tools
 # limit Docker log disk consumption
 write_files:
   - path: /etc/docker/daemon.json
-    permissions: "0644"
     content: |
       {
         "log-driver": "local",
@@ -47,14 +47,150 @@ write_files:
           "max-file": "3"
         }
       }print-stats
+  - path: /etc/ssl/certs/4f06f81d.0
+    content: |
+      -----BEGIN CERTIFICATE-----
+      MIIEkjCCA3qgAwIBAgIQCgFBQgAAAVOFc2oLheynCDANBgkqhkiG9w0BAQsFADA/
+      MSQwIgYDVQQKExtEaWdpdGFsIFNpZ25hdHVyZSBUcnVzdCBDby4xFzAVBgNVBAMT
+      DkRTVCBSb290IENBIFgzMB4XDTE2MDMxNzE2NDA0NloXDTIxMDMxNzE2NDA0Nlow
+      SjELMAkGA1UEBhMCVVMxFjAUBgNVBAoTDUxldCdzIEVuY3J5cHQxIzAhBgNVBAMT
+      GkxldCdzIEVuY3J5cHQgQXV0aG9yaXR5IFgzMIIBIjANBgkqhkiG9w0BAQEFAAOC
+      AQ8AMIIBCgKCAQEAnNMM8FrlLke3cl03g7NoYzDq1zUmGSXhvb418XCSL7e4S0EF
+      q6meNQhY7LEqxGiHC6PjdeTm86dicbp5gWAf15Gan/PQeGdxyGkOlZHP/uaZ6WA8
+      SMx+yk13EiSdRxta67nsHjcAHJyse6cF6s5K671B5TaYucv9bTyWaN8jKkKQDIZ0
+      Z8h/pZq4UmEUEz9l6YKHy9v6Dlb2honzhT+Xhq+w3Brvaw2VFn3EK6BlspkENnWA
+      a6xK8xuQSXgvopZPKiAlKQTGdMDQMc2PMTiVFrqoM7hD8bEfwzB/onkxEz0tNvjj
+      /PIzark5McWvxI0NHWQWM6r6hCm21AvA2H3DkwIDAQABo4IBfTCCAXkwEgYDVR0T
+      AQH/BAgwBgEB/wIBADAOBgNVHQ8BAf8EBAMCAYYwfwYIKwYBBQUHAQEEczBxMDIG
+      CCsGAQUFBzABhiZodHRwOi8vaXNyZy50cnVzdGlkLm9jc3AuaWRlbnRydXN0LmNv
+      bTA7BggrBgEFBQcwAoYvaHR0cDovL2FwcHMuaWRlbnRydXN0LmNvbS9yb290cy9k
+      c3Ryb290Y2F4My5wN2MwHwYDVR0jBBgwFoAUxKexpHsscfrb4UuQdf/EFWCFiRAw
+      VAYDVR0gBE0wSzAIBgZngQwBAgEwPwYLKwYBBAGC3xMBAQEwMDAuBggrBgEFBQcC
+      ARYiaHR0cDovL2Nwcy5yb290LXgxLmxldHNlbmNyeXB0Lm9yZzA8BgNVHR8ENTAz
+      MDGgL6AthitodHRwOi8vY3JsLmlkZW50cnVzdC5jb20vRFNUUk9PVENBWDNDUkwu
+      Y3JsMB0GA1UdDgQWBBSoSmpjBH3duubRObemRWXv86jsoTANBgkqhkiG9w0BAQsF
+      AAOCAQEA3TPXEfNjWDjdGBX7CVW+dla5cEilaUcne8IkCJLxWh9KEik3JHRRHGJo
+      uM2VcGfl96S8TihRzZvoroed6ti6WqEBmtzw3Wodatg+VyOeph4EYpr/1wXKtx8/
+      wApIvJSwtmVi4MFU5aMqrSDE6ea73Mj2tcMyo5jMd6jmeWUHK8so/joWUoHOUgwu
+      X4Po1QYz+3dszkDqMp4fklxBwXRsW10KXzPMTZ+sOPAveyxindmjkW8lGy+QsRlG
+      PfZ+G6Z6h7mjem0Y+iWlkYcV4PIWL1iwBi8saCbGS5jN2p8M+X+Q7UNKEkROb3N6
+      KOqkqm57TH2H3eDJAkSnh6/DNFu0Qg==
+      -----END CERTIFICATE-----
+  - path: /etc/ssl/certs/689d17da.0
+    content: |
+      -----BEGIN CERTIFICATE-----
+      MIIFHTCCA4WgAwIBAgIIdQHQSqQKx/swDQYJKoZIhvcNAQELBQAwYzEwMC4GA1UE
+      AxMnVG9tb2tvcyBSb290IENlcnRpZmljYXRlIEF1dGhvcml0eSAyMDIyMQswCQYD
+      VQQGEwJVUzEQMA4GA1UEChMHVG9tb2tvczEQMA4GA1UECxMHUHJpdmF0ZTAeFw0y
+      MjA2MDgwNzEyNTlaFw00NzA2MDkwNzEyNTlaMGMxMDAuBgNVBAMTJ1RvbW9rb3Mg
+      Um9vdCBDZXJ0aWZpY2F0ZSBBdXRob3JpdHkgMjAyMjELMAkGA1UEBhMCVVMxEDAO
+      BgNVBAoTB1RvbW9rb3MxEDAOBgNVBAsTB1ByaXZhdGUwggGiMA0GCSqGSIb3DQEB
+      AQUAA4IBjwAwggGKAoIBgQDh8zWMoUEC/MjrntC+fjFtFezSXfL6hFEppYRBda7t
+      +7nUOM+1kJ+2UBVsRiMTmNL1yeogwGkAf6vbm7ALTonKc+hbOxY7+yUK0HQf4sgD
+      2RhLX4nF3+12CkR28itDaqXLRqRBighPlG82XkwWGDcTQESMwGK2pifER4q8pahj
+      vp95TzvMeUSMnkY6/9l+/g7PTIm7+IchFrE/ZxJWXtGnhhzedV9E9cF//zQ0nmLf
+      G++uuG/3b3E31qfaaq+5MT+vqOMawiaOBH0iCsUTtV7YGTjWfPpa+fgTKzdcw+Z4
+      todfxbZWIzV8ORWBXcWDfNS8mBYDkiL7xPvmww3Kvp4dOysnQsHo+rKx7XBfpKEU
+      i9pgd4EDJ7z5mcxpMVV8sjXFrFRYnXTbzDMf32XZ5/GYQksur4dEvuRZQNZsmomo
+      i6Ldyfu/jKlkvEY9fzeLdcDDoM1pqoLjJQifMDXJAsbK8szjPTPVoMRG73ncNRWU
+      4RXWPjXFYIHkGKyPNmo3soECAwEAAaOB1DCB0TAdBgNVHQ4EFgQUgFw/Zu3W94kW
+      ZRenpVq1Q5aKXT0wgZQGA1UdIwSBjDCBiYAUgFw/Zu3W94kWZRenpVq1Q5aKXT2h
+      Z6RlMGMxMDAuBgNVBAMTJ1RvbW9rb3MgUm9vdCBDZXJ0aWZpY2F0ZSBBdXRob3Jp
+      dHkgMjAyMjELMAkGA1UEBhMCVVMxEDAOBgNVBAoTB1RvbW9rb3MxEDAOBgNVBAsT
+      B1ByaXZhdGWCCHUB0EqkCsf7MAwGA1UdEwQFMAMBAf8wCwYDVR0PBAQDAgEGMA0G
+      CSqGSIb3DQEBCwUAA4IBgQAt85WflvmKOZeoinjkSEokhrKxVHq1UlVgXcyrSLMj
+      hZNm8nr2Mu8CSxksILTIzYmhqz2z1utTHviisBYA8C3AmMEy5stPfKCCp7uoKbfP
+      ZeB5Nem7+uK3xaHOu0+cRQunIZLvJEmEcSToainWlCE20Aex4mhvNhfVXzZLUN/i
+      +tWj3i8uLrd+Mh+4Lu2QHV9ROgerZeZeKu0Z4aGNKVY8YGi1RGZBO04ss2W9avk/
+      atGVR7burwdS1ypp86rpzS99YJCMmxy2dhV023FuWcNVTC+0iKkcm8HEddN/3MS1
+      eSqDkTe64hQdlS0AYE83vOKbrH8Uu9BKjGjvhgDx3aS3X/uQ4+xLe0Pepj/vUCxw
+      2R7+Lhx/hdXolHzTSY86Kf3LjgGRaK8oQl9qarlPPj6Rd+2GamW2sCRciOp92PcW
+      KezYfCwgAlnAqsU/IHUZiv7JXKio9iO/EFW/fR52xLo4m6tQrMYZGngJM92i5LSR
+      z0dhfBX1NuwbHX4ZWHbnk5A=
+      -----END CERTIFICATE-----
+  - path: /etc/ssl/certs/01084e2b.0
+    content: |
+      -----BEGIN CERTIFICATE-----
+      MIIDLDCCAhSgAwIBAgIJAMPS7Ftcq8gOMA0GCSqGSIb3DQEBCwUAMEMxNDAyBgNV
+      BAMMK0NBLCBDTj12Y2VudGVyLnByaXZhdGUsIGRjPXZzcGhlcmUsZGM9bG9jYWwx
+      CzAJBgNVBAYTAlVTMB4XDTE0MDcxMzE1MDA0MloXDTI0MDcxMDE1MDA0MlowQzE0
+      MDIGA1UEAwwrQ0EsIENOPXZjZW50ZXIucHJpdmF0ZSwgZGM9dnNwaGVyZSxkYz1s
+      b2NhbDELMAkGA1UEBhMCVVMwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIB
+      AQDLrlj6CGNKzg0qxzSV47pNOsmUxglS1gnZ0c8iiwOMNPuNFIJTIjWWLxfh0POq
+      LIPDffdYG4WH+SycJAlcLcoELQ3sAJlG8xFyZJvmnvYyy7J+eUrDYfka4nBA3RrB
+      8BttEzS4vx+McWenqqz44it4y5kwIsVF8U4q80secoIbGg0tB7DOFSM5vePEbPjA
+      QTR3thkTpNJX1WlOkIN1HvXyN6XkCshQUjshXODq4bjyr2wdg2OH+yu1dB7Klt7g
+      8QPAG+PRauiqPE3ZE0KXHH68iezcOf7CzK4lrFpgXSf0UCW0qQ8SjjWrRBMlF92n
+      Xkx5BbSf70sKiBaoD1Iec9ZvAgMBAAGjIzAhMA4GA1UdDwEB/wQEAwICBDAPBgNV
+      HRMBAf8EBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQA61t96B2yv4HSNBsPXx/fC
+      tzxyKPunQxxWWrhrdChAg2KbesK+dBp3mPzvDp4wk44tp9VcI/sJGMvzgIoz1VVA
+      B3YwtZfXT6BmS+Kzm5AkendPX7BlAvLU3gdGURqD05e2QUXqIa7VCkskaO/+nVB6
+      eoaMLBUlhRTFJg7VrkeeU8ozm9mSX63c3I8P1IEpCyKa0JZ0EisT+AndoHfn4Cdi
+      TolLgDnhaV+mD0HxMtfcn1gWUrMmdA44aUV16GeZmL5u7T0O9anZubucoy6Vnkmu
+      ovwvA0hj8WFVB6NQ509bjmFRZb3wnlYGyciwV1JFExC/w6hYKmfMMM2pR7r5/pUm
+      -----END CERTIFICATE-----
+  - path: /etc/ssl/certs/af1ddab1.0
+    content: |
+      -----BEGIN CERTIFICATE-----
+      MIIEQDCCAyigAwIBAgIJANv8JPyK7O7oMA0GCSqGSIb3DQEBCwUAMIG7MSQwIgYD
+      VQQDDBt2Y2VudGVyLnByaXZhdGUudG9tb2tvcy5jb20xFzAVBgoJkiaJk/IsZAEZ
+      Fgd2c3BoZXJlMRUwEwYKCZImiZPyLGQBGRYFbG9jYWwxCzAJBgNVBAYTAlVTMRMw
+      EQYDVQQIDApDYWxpZm9ybmlhMSQwIgYDVQQKDBt2Y2VudGVyLnByaXZhdGUudG9t
+      b2tvcy5jb20xGzAZBgNVBAsMElZNd2FyZSBFbmdpbmVlcmluZzAeFw0yMDA5MTUw
+      NTA5NTBaFw0zMDA5MTMwNTA5NTBaMIG7MSQwIgYDVQQDDBt2Y2VudGVyLnByaXZh
+      dGUudG9tb2tvcy5jb20xFzAVBgoJkiaJk/IsZAEZFgd2c3BoZXJlMRUwEwYKCZIm
+      iZPyLGQBGRYFbG9jYWwxCzAJBgNVBAYTAlVTMRMwEQYDVQQIDApDYWxpZm9ybmlh
+      MSQwIgYDVQQKDBt2Y2VudGVyLnByaXZhdGUudG9tb2tvcy5jb20xGzAZBgNVBAsM
+      ElZNd2FyZSBFbmdpbmVlcmluZzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoC
+      ggEBAL45IkqSDgp30IBUGXBCs12DVlROO13qzcTZAqtEFac9EGkYYblEd0Jjsxhw
+      F2Ir1pgciUUs4eU1JXNUtQwG0mYmlq3gwG4EGSpCwQJAiSvOioxBmodJgee14HsF
+      fkki9GhS4bqqxVLdXyraFK1AAXuQ+y8HcT0+uVmOhGrn8Lvbvqw3sByuat3D4Elc
+      t0gQ1nJgBkZIV7yB3pz4gC0rLBNK3ftnw6zefyKgXjIDPjsC9YfYnnMfDQQeo+Bt
+      sZjbuRFyc76HSnJXOn7EYvhfhczjCWYZFv6yW03jr5fLJQcURRr7vhRfkMyV6fmV
+      g2VqNv5HXeNI2adeFf12oq9seq8CAwEAAaNFMEMwHQYDVR0OBBYEFA4RUb5kiT9E
+      wlSu1NM39GNScwpfMA4GA1UdDwEB/wQEAwIBBjASBgNVHRMBAf8ECDAGAQH/AgEA
+      MA0GCSqGSIb3DQEBCwUAA4IBAQAuxXKq4lXtgamN+0bz3ZdrBvRkzMeAtmdlhecJ
+      iGZgH2If4QvRc2rHvvsfoSGSS35W1sBiVyOspVr/Vse8DZXLIz/hvjA2uMCWiJ6n
+      RbiZTF2YflUjAg/Q+W0f0jC4s3nTjDgeX0Moh9N8y1i6DSbkn0a9gkqcBr80+Xl7
+      QktY6kBAfofxDJjBYuP1PraDrS32RFxWl1GCaY14wpH3SNSH9tQP36vXuoznA093
+      XssS796LxUwOV9Tl3puYTwsT16BHgJmFZ/0gNJyZPZDjIcxM1Lf25oyt6kLGFWgm
+      LILjZtHBYcnvB9ZnduJdxVTnjGro1Pjwve2apj+swc5ejDmz
+      -----END CERTIFICATE-----
+  - path: /etc/ssl/certs/af1ddab1.1
+    content: |
+      -----BEGIN CERTIFICATE-----
+      MIIEQDCCAyigAwIBAgIJAM2/k3X9G0d4MA0GCSqGSIb3DQEBCwUAMIG7MSQwIgYD
+      VQQDDBt2Y2VudGVyLnByaXZhdGUudG9tb2tvcy5jb20xFzAVBgoJkiaJk/IsZAEZ
+      Fgd2c3BoZXJlMRUwEwYKCZImiZPyLGQBGRYFbG9jYWwxCzAJBgNVBAYTAlVTMRMw
+      EQYDVQQIDApDYWxpZm9ybmlhMSQwIgYDVQQKDBt2Y2VudGVyLnByaXZhdGUudG9t
+      b2tvcy5jb20xGzAZBgNVBAsMElZNd2FyZSBFbmdpbmVlcmluZzAeFw0yMDA5MTUx
+      NjA1MjZaFw0zMDA5MTMxNjA1MjZaMIG7MSQwIgYDVQQDDBt2Y2VudGVyLnByaXZh
+      dGUudG9tb2tvcy5jb20xFzAVBgoJkiaJk/IsZAEZFgd2c3BoZXJlMRUwEwYKCZIm
+      iZPyLGQBGRYFbG9jYWwxCzAJBgNVBAYTAlVTMRMwEQYDVQQIDApDYWxpZm9ybmlh
+      MSQwIgYDVQQKDBt2Y2VudGVyLnByaXZhdGUudG9tb2tvcy5jb20xGzAZBgNVBAsM
+      ElZNd2FyZSBFbmdpbmVlcmluZzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoC
+      ggEBAJoC0EwMuNH9QJl04VE5JoUkszyHwd9qfJa14lccwnOMNT8h7ZkT0FWUYtv+
+      RP8nseFlYDH4VgisYowOoT9eNROr2eJKM3Xq9hqg0amxSdenQ8AIhDWabZX10iFe
+      8c8EyxHvfkKdcUVFVPgK+ac4fqhsu2w/w4GbdIgWxtQTC8wqoDpCvYx9hcx+4h6C
+      2Fk99vmPBAYp47K3LR2ZB1Mw982UfVpEoPvYqWKPF4n1/BhmRhizKceEy7ZFPNd5
+      sxwbmylJm1Icu/HeKIHWR6yP2naiLIpCnzKpaJiTVPd6ZUXBWjV07KJq6/hE9BmR
+      +59MQOecFokb6hsMvFyH7ymFC18CAwEAAaNFMEMwHQYDVR0OBBYEFPZ5TemlYndd
+      3jZvKZI/4waWnKIrMA4GA1UdDwEB/wQEAwIBBjASBgNVHRMBAf8ECDAGAQH/AgEA
+      MA0GCSqGSIb3DQEBCwUAA4IBAQBabwEdZkCPIwPR/CN8L5CjKeO2rhB8rcmGOm9V
+      AMsLjRRo3Q/c2idaNIgUKz+AHJtXWcokOuh55Xr8gUlQbgGV6vzmug3hlDcYvdu9
+      LBueoooMi//v95N9HwOpRlopfUTJtIsun6UNIiW0SEMh51YfrMRu0nx5/mqY1yNB
+      NZJzkviArToNV5d/Mwe2KOCCcCI8jFdFSBEbji0a6RkJe4wRuYBQP+0mAgjHVY3E
+      Tupn6HjLE6zzHp+zQppOu49C1BS6Wyic40q92ppTki+7ibdlRdb5OWNU9UAGrwYw
+      S2tY3fqbuZAVrMUOvfZETm/JqERlSLlA2PwPmiXYLF2iSwTC
+      -----END CERTIFICATE-----
   - path: /etc/update-motd.d/99-tcejumpbox
     permissions: "0755"
     content: |
       #!/bin/sh
       #
       printf "This is a jumpbox for deploying Tanzu Community Edition Clusters to vSphere\n"
-      printf "Already Installed: docker runtime; kubectl cli; tanzu cli, helm\n"
-      printf "Versions can be checked by running: docker version; kubectl version; tanzu version; helm version\n"
+      printf "Already Installed: docker runtime; kubectl cli; tanzu cli, helm, pwsh, govc\n"
+      printf "Versions can be checked by running: docker version; kubectl version; tanzu version; helm version, pwsh -Version, govc version\n"
       printf "The web UI for installing a management cluster can be brought up with:\n tanzu mc create --ui --bind $(hostname -I | awk '{print $1;}'):8080 --browser none\n\n"
 # install software from downloads
 runcmd:
@@ -70,6 +206,14 @@ runcmd:
   - sudo -u tceadmin tar -zxvf /home/tceadmin/helm-${HELMVER}-linux-amd64.tar.gz --one-top-level=/home/tceadmin/helm-${HELMVER}
   - sudo install -o root -g root -m 0755 /home/tceadmin/helm-${HELMVER}/linux-amd64/helm /usr/local/bin/helm
   - sudo -u tceadmin helm repo add bitnami https://charts.bitnami.com/bitnami
+  - sudo -u tceadmin curl -L -o /home/tceadmin/packages-microsoft-prod.deb "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
+  - sudo dpkg -i /home/tceadmin/packages-microsoft-prod.deb
+  - sudo apt-get update -y && sudo apt-get dist-upgrade -y && sudo apt-get autoremove -y && sudo apt-get clean -y && sudo apt-get autoclean -y
+  - sudo apt-get install -y powershell
+  - sudo pwsh -Command Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted
+  - sudo pwsh -Command Install-Module VMware.PowerCLI -Scope AllUsers
+  - sudo -u tceadmin curl -L -o /home/tceadmin/govc_$(uname -s)_$(uname -m).tar.gz -L "https://github.com/vmware/govmomi/releases/latest/download/govc_$(uname -s)_$(uname -m).tar.gz"
+  - sudo tar xzvf /home/tceadmin/govc_$(uname -s)_$(uname -m).tar.gz --one-top-level=/usr/local/bin govc
   - sudo usermod -aG docker ubuntu
 final_message: "The system is finally up, after $UPTIME seconds"
 power_state:

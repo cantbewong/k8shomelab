@@ -48,27 +48,27 @@ Save the file then do “Save As” and save again as **tcejumpbox-init.base64**
 
 Go to the TCE content library and right click on the OVA to create a new VM called tcejumpbox placing it in the resource pool associated with TCE.
 
-After it is created, edit VM settings to 2 CPU, 8GB of memory and 64GB of disk. Optionally you can enable cut and paste to console window as described [here](https://kb.vmware.com/s/article/57122). If you think you may be doing this frequently use the name tcejumpboxtemplate instead and convert this to a template without ever powering it on.
+In Customize template stage
+
+1. Set Instance ID to tcejumpbox (same as VM name)
+2. Set hostname to tcejumpbox (same as VM name)
+3. Leave URL to seed instance data untouched and empty
+4. Set ssh public keys to the same public key you used in the cloud-init file
+5. Set Encoded user-data to the Base64 encoded version of the cloud-init file that we converted in VisualStudioCode - just cut and paste from the editor
+6. set password to changeme
+7. press NEXT
 
 ## Configure the TCE jumpbox VM and power it on
 
-Go to Configure, vApp Options Edit.
+After the jumpbox VM is created, edit VM settings to 8GB of memory and 64GB of disk. Optionally you can enable cut and paste to console window as described [here](https://kb.vmware.com/s/article/57122). If you think you may be doing this frequently use the name tcejumpboxtemplate instead and convert this to a template without ever powering it on - then deploy/customize jumpboxes from the template.
 
-1. Set user-data to the Base64 encoded version of the cloud-init file that we converted in VisualStudioCode - just cut and paste from the editor
-2. Set public keys to the same public key you used in the cloud-init
-3. set password to changeme
-4. set instance-id top tcejumpbox (same as VM name)
-5. set hostname to tcejumpbox (same as VM name)
-6. seedfrom option is left untouched and empty
-7. save
+Power on the VM and open a remote console window to watch. You can also watch cpu, and network consumption using the Monitor/Overview tab. You should see it start and consume a burst of resource as it initializes the VM, after about 5 minutes (depends on Internet download speed) it will complete and power itself off.
 
-Power on the VM and open a remote console window to watch. You can also watch cpu, and network consumption using the Monitor/Overview tab. You should see it start and consume a burst of resource as it initializes the VM, after a few minutes it will complete and power itself off.
+Power the VM back on and logon as default user ubuntu, password changeme. It will force you to enter a new password. You should also be able to ssh in using your ssh key once you determine a network IP.
 
-Power the VM back on and logon as user ubuntu, password changeme. It will force you to enter a new password. You should also be able to ssh in using your ssh key once you determine a network IP.
+The tanzu CLI is designed for use by a non-root user. You can login as the second user (tceadmin) using ssh with the key associated with the public one you submitted in user-data when the VM was started the first time.
 
-The tanzu CLI is designed for use by a non-root user. You can login as the tceadmin user using ssh with the key associated with the public one you submitted when the VM was started the first time.
-
-If things went as expected to can invoke the Tanzu CLI to deploy a TCE management cluster 
+If things went as expected, you can invoke the Tanzu CLI to deploy a TCE management cluster 
 
 ```shell
 tanzu management-cluster create --ui --bind <VM ip here>:8080 --browser none
